@@ -77,14 +77,10 @@ def analyze_depends(pkginfo):
         allprovides |= plist
 
     # Common deps
-    [
+    for duplicated_optdepend in explicitdepend & optdepend:
         errors.append(("dependency-duplicated-optdepend %s", (duplicated_optdepend,)))
-        for duplicated_optdepend in explicitdepend & optdepend
-    ]
-    [
+    for satisfied_optdepend in implicitdepend & optdepend:
         infos.append(("dependency-satisfied-optdepend %s", (satisfied_optdepend,)))
-        for satisfied_optdepend in implicitdepend & optdepend
-    ]
 
     # Do the actual message outputting stuff
     for i in dependlist:
