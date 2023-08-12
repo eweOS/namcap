@@ -14,3 +14,29 @@ ignore = [
 
 [tool.black]
 line-length = 120
+
+[tool.mypy]
+check_untyped_defs = true
+disable_error_code = """
+    arg-type,
+    assignment,
+    attr-defined,
+    func-returns-value,
+    misc,
+    no-any-return,
+    no-untyped-def,
+    union-attr,
+    var-annotated
+"""
+disallow_incomplete_defs = true
+disallow_subclassing_any = true
+disallow_untyped_decorators = true
+files = "namcap.py,Namcap/**/*.py"
+ignore_missing_imports = true
+implicit_reexport = false
+namespace_packages = true
+no_implicit_optional = true
+strict_equality = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unused_ignores = true

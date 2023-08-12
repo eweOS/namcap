@@ -111,6 +111,20 @@ Otherwise the format of the file is:
 
 Note that a double colon (::) is used to separate the hyphenated tag from the human readable description.
 
+# How to Typecheck the Code Base
+
+Namcap supports [mypy](https://www.mypy-lang.org/), a type checker
+that infers type information.
+This helps uncover hidden issues, and enables editors and IDEs to
+make more informed decisions, e.g. inline completions.
+
+To verify that the code base is free from apparent typing errors,
+run:
+
+``` console
+mypy
+```
+
 # How to Test a Rule
 
 Namcap comes with a test suite covering the classical mistakes or warnings we are expecting from the rules.
