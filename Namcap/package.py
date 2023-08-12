@@ -62,6 +62,8 @@ class PacmanPackage(collections.abc.MutableMapping):
         "license": "licenses",
     }
 
+    pkgbuild: list[str]
+
     @classmethod
     def canonical_varname(cls, varname):
         try:

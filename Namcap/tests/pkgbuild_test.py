@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 import os
+from typing import Callable, NoReturn
 import unittest
 import tempfile
 import shutil
@@ -23,6 +24,8 @@ class PkgbuildTest(unittest.TestCase):
             # Add standard valid PKGBUILDs to tests
             self.test_valid = PkgbuildTest.valid_tests
     """
+
+    rule: Callable[..., Namcap.ruleclass.AbstractRule] | NoReturn
 
     def preSetUp(self):
         pass

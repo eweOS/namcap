@@ -113,6 +113,8 @@ def get_imports(fileobj, filename, modules, gir_modules, gir_versions):
             and isinstance(node.func.value, ast.Name)
             and node.func.value.id == "gi"
             and node.func.attr == "require_versions"
+            and hasattr(node.args[0], "keys")
+            and hasattr(node.args[0], "values")
         ):
             for module, version in zip(node.args[0].keys, node.args[0].values):
                 if hasattr(module, "value") and hasattr(version, "value"):
