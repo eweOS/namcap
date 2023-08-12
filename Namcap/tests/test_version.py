@@ -14,4 +14,5 @@ class VersionTests(unittest.TestCase):
         with open(os.path.join(here, "..", "..", "namcap.1")) as f:
             first_line = f.readline()
         match = re.search(r'"namcap (.*?)"', first_line)
+        assert match is not None
         self.assertEqual(match.group(1), Namcap.version.get_version())

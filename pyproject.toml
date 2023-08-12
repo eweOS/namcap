@@ -20,8 +20,7 @@ check_untyped_defs = true
 disable_error_code = """
     assignment,
     attr-defined,
-    func-returns-value,
-    union-attr
+    func-returns-value
 """
 disallow_incomplete_defs = true
 disallow_subclassing_any = true

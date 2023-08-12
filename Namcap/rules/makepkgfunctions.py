@@ -14,8 +14,8 @@ class package(PkgbuildRule):
         regex = re.compile(r"^\s+(%s) " % "|".join(bad_calls))
         hits = set()
         for i in pkginfo.pkgbuild:
-            if regex.match(i):
-                call = regex.match(i).group(1)
+            if match := regex.match(i):
+                call = match.group(1)
                 hits.add(call)
         for i in hits:
             self.warnings.append(("makepkg-function-used %s", i))
