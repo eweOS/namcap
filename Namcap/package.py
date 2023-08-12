@@ -12,6 +12,8 @@ import pyalpm
 
 import pycman.config
 
+from .types import FormatArgs
+
 _pyalpm_version_tuple = tuple(int(n) for n in pyalpm.version().split("."))
 if _pyalpm_version_tuple < (0, 5):
     raise DeprecationWarning("pyalpm versions <0.5 are no longer supported")
@@ -82,7 +84,7 @@ class PacmanPackage(collections.abc.MutableMapping):
         # Usual attributes
         self.is_split = False
         # a dictionary { package => [reasons why it is needed] }
-        self.detected_deps = collections.defaultdict(list)
+        self.detected_deps: dict[str, list[tuple[str, FormatArgs]]] = collections.defaultdict(list)
         self._data = {}
 
         # Init from a dictionary
@@ -193,9 +195,9 @@ def load_from_pkgbuild(path):
     process = subprocess.Popen(
         ["parsepkgbuild", filename], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=workingdir
     )
-    out, err = process.communicate()
-    out = out.decode("utf-8", "ignore")
-    err = err.decode("utf-8", "ignore")
+    out_b, err_b = process.communicate()
+    out = out_b.decode("utf-8", "ignore")
+    err = err_b.decode("utf-8", "ignore")
     # this means parsepkgbuild returned an error, so we are not valid
     if process.returncode > 0:
         if out:

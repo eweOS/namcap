@@ -17,7 +17,6 @@ line-length = 120
 
 [tool.mypy]
 check_untyped_defs = true
-disable_error_code = "assignment"
 disallow_incomplete_defs = true
 disallow_subclassing_any = true
 disallow_untyped_decorators = true

@@ -180,10 +180,10 @@ def get_symlink_target(member: TarInfo) -> str:
     return symlink_target
 
 
-def package_license_files(tar: TarFile | None, pkgname: str) -> tuple[dict[str, str], str | None]:
+def package_license_files(tar: TarFile | None, pkgname: str) -> tuple[dict[str, bool], str | None]:
     """Return the license files referenced in a package and whether the license dir is a symlink"""
     license_dir_symlink = None
-    files: dict[str, str] = {}
+    files: dict[str, bool] = {}
 
     if not tar:
         return (files, license_dir_symlink)

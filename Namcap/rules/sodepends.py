@@ -43,7 +43,11 @@ def scanlibs(fileobj, filename, custom_libs, liblist, libdepends, libprovides):
             continue
         for tag in section.iter_tags():
             bitsize = elffile.elfclass
-            architecture: Architecture = {32: "i686", 64: "x86-64"}[bitsize]
+            match bitsize:
+                case 32:
+                    architecture: Architecture = "i686"
+                case 64:
+                    architecture = "x86-64"
             # DT_SONAME means it provides a library
             if tag.entry.d_tag == "DT_SONAME" and os.path.dirname(filename) in ["usr/lib", "usr/lib32"]:
                 soname = re.sub(r"\.so.*", ".so", tag.soname)
