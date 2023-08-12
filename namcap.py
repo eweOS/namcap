@@ -8,6 +8,7 @@ import sys
 import tarfile
 
 import Namcap.depends
+from Namcap.package import load_from_tarball, PacmanPackage
 import Namcap.rules
 import Namcap.tags
 import Namcap.version
@@ -58,7 +59,11 @@ def process_realpackage(package, modules):
         print("Error: %s is empty or is not a valid package" % package)
         return 1
 
-    pkginfo = Namcap.package.load_from_tarball(package)
+    pkginfo: PacmanPackage | None = load_from_tarball(package)
+    if pkginfo is None:
+        print(f"Error: Loading package from {package} failed")
+        return 1
+
     # Loop through each one, load them apply if possible
     for i in modules:
         rule = get_modules()[i]()
