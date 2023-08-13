@@ -7,6 +7,7 @@ import subprocess
 import re
 import collections
 import gzip
+from typing import Any
 
 import pyalpm
 
@@ -38,7 +39,7 @@ def strip_depend_info(value):
     return m.group(1)
 
 
-class PacmanPackage(collections.abc.MutableMapping):
+class PacmanPackage(collections.abc.MutableMapping[str, Any]):
     strings = [
         "base",
         "name",

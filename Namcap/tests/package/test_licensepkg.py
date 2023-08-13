@@ -11,7 +11,7 @@ from pathlib import Path
 from pytest import mark, raises
 from license_expression import BaseSymbol, LicenseSymbol, LicenseWithExceptionSymbol
 from tarfile import TarInfo
-from typing import ContextManager
+from typing import Any, ContextManager
 
 
 @mark.parametrize(
@@ -28,7 +28,7 @@ from typing import ContextManager
         ),
     ],
 )
-def test_get_license_canonicalized(input: str, result: str, expectation: ContextManager) -> None:
+def test_get_license_canonicalized(input: str, result: str, expectation: ContextManager[Any]) -> None:
     with expectation:
         assert result == licensepkg.get_license_canonicalized(input)
 
@@ -78,7 +78,7 @@ def test_strip_plus_from_license(input: str, result: str) -> None:
         ),
     ],
 )
-def test_get_license_symbols(input: str, result: set[LicenseSymbol], expectation: ContextManager) -> None:
+def test_get_license_symbols(input: str, result: set[LicenseSymbol], expectation: ContextManager[Any]) -> None:
     with expectation:
         assert result == licensepkg.get_license_symbols(input)
 
@@ -223,7 +223,7 @@ def test_package_license_files(
         ("foo", "../bar", None, raises(ValueError)),
     ],
 )
-def test_get_symlink_target(name: str, linkname: str, result: str, expectation: ContextManager) -> None:
+def test_get_symlink_target(name: str, linkname: str, result: str, expectation: ContextManager[Any]) -> None:
     tarinfo = TarInfo(name)
     tarinfo.linkname = linkname
 
