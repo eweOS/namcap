@@ -25,6 +25,17 @@ ruff-format:
   script:
     - ruff format --check -q .
 
+mypy:
+  stage: test
+  needs: []
+  only:
+    - branches
+    - merge_requests
+  before_script:
+    - pacman -Syu --needed --noconfirm mypy python-pytest python-pyelftools
+  script:
+    - mypy
+
 pytest:
   stage: test
   needs: []
