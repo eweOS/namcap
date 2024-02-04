@@ -38,7 +38,7 @@ def strip_plus_from_license(license: BaseSymbol) -> BaseSymbol:
         return LicenseSymbol(license_id)
 
 
-def get_license_symbols(license: str) -> set[BaseSymbol]:
+def get_license_symbols(pkg_license: str) -> set[BaseSymbol]:
     """Extract all license symbols from a license string
 
     This function may raise an Exception if it's not possible to derive any meaning from the input string.
@@ -46,9 +46,10 @@ def get_license_symbols(license: str) -> set[BaseSymbol]:
     SPDX license exception identifier.
     """
     licensing = get_spdx_licensing()
-    symbols = licensing.parse(license, strict=True)
+    if (license_expression := licensing.parse(pkg_license, strict=True)) is None:
+        raise ValueError("Empty license string")
     license_symbols: set[BaseSymbol] = set()
-    for symbol in symbols.symbols:
+    for symbol in license_expression.symbols:
         if isinstance(symbol, LicenseWithExceptionSymbol):
             license, exception = list(symbol.decompose())
             license = strip_plus_from_license(license)
