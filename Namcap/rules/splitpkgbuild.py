@@ -23,7 +23,7 @@ class PackageFunctionsRule(PkgbuildRule):
         # All subpackages should have a valid package function
         for subpkg in pkginfo.subpackages:
             if subpkg["pkgfunction"] != "function":
-                self.errors.append(("missing-pkgfunction %s", subpkg["name"]))
+                self.errors.append(("missing-pkgfunction %s", (subpkg["name"],)))
 
 
 class SplitPkgMakedepsRule(PkgbuildRule):
@@ -59,4 +59,4 @@ class SplitPkgMakedepsRule(PkgbuildRule):
 
         if not local_deps.issubset(global_deps):
             missing = list(local_deps - global_deps)
-            self.errors.append(("missing-makedeps %s", str(sorted(missing))))
+            self.errors.append(("missing-makedeps %s", (str(sorted(missing)),)))

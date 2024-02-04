@@ -215,14 +215,14 @@ class SharedLibsRule(TarballRule):
 
         for i in pkginfo["depends"]:
             if ".so" in i and i not in libdependlist:
-                self.warnings.append(("libdepends-not-needed %s", i))
+                self.warnings.append(("libdepends-not-needed %s", (i,)))
             if i.endswith(".so"):
-                self.errors.append(("libdepends-without-version %s", i))
+                self.errors.append(("libdepends-without-version %s", (i,)))
 
         self.infos.append(
             (
                 "libdepends-by-namcap-sight depends=(%s)",
-                " ".join(sorted(set(libdependlist) | set(missing_provides.values()))),
+                (" ".join(sorted(set(libdependlist) | set(missing_provides.values()))),),
             )
         )
 
@@ -235,15 +235,15 @@ class SharedLibsRule(TarballRule):
 
         for i in pkginfo["provides"]:
             if ".so" in i and i not in libprovides:
-                self.warnings.append(("libprovides-missing %s", i))
+                self.warnings.append(("libprovides-missing %s", (i,)))
             if i.endswith(".so"):
-                self.errors.append(("libprovides-without-version %s", i))
+                self.errors.append(("libprovides-without-version %s", (i,)))
 
-        self.infos.append(("libprovides-by-namcap-sight provides=(%s)", " ".join(libprovides)))
+        self.infos.append(("libprovides-by-namcap-sight provides=(%s)", (" ".join(libprovides),)))
 
         # Check for packages in testing
         for i in dependlist.keys():
             p = Namcap.package.load_testing_package(i)
             q = Namcap.package.load_from_db(i)
             if p is not None and q is not None and p["version"] == q["version"]:
-                self.warnings.append(("dependency-is-testing-release %s", i))
+                self.warnings.append(("dependency-is-testing-release %s", (i,)))

@@ -53,9 +53,9 @@ class ELFPaths(TarballRule):
                     invalid_elffiles.append(entry.name)
 
         que_elfdirs = [d for d in questionable_dirs if any(f.startswith(d) for f in questionable_elffiles)]
-        self.errors = [("elffile-not-in-allowed-dirs %s", i) for i in invalid_elffiles]
+        self.errors = [("elffile-not-in-allowed-dirs %s", (i,)) for i in invalid_elffiles]
         self.errors.extend(("elffile-in-questionable-dirs %s", (i,)) for i in que_elfdirs)
-        self.infos = [("elffile-not-in-allowed-dirs %s", i) for i in questionable_elffiles]
+        self.infos = [("elffile-not-in-allowed-dirs %s", (i,)) for i in questionable_elffiles]
 
 
 class ELFTextRelocationRule(TarballRule):
@@ -78,7 +78,7 @@ class ELFTextRelocationRule(TarballRule):
                         files_with_textrel.append(entry_name)
 
         if files_with_textrel:
-            self.warnings = [("elffile-with-textrel %s", i) for i in files_with_textrel]
+            self.warnings = [("elffile-with-textrel %s", (i,)) for i in files_with_textrel]
 
 
 class ELFExecStackRule(TarballRule):
@@ -106,7 +106,7 @@ class ELFExecStackRule(TarballRule):
                     exec_stacks.append(entry_name)
 
         if exec_stacks:
-            self.warnings = [("elffile-with-execstack %s", i) for i in exec_stacks]
+            self.warnings = [("elffile-with-execstack %s", (i,)) for i in exec_stacks]
 
 
 class ELFGnuRelroRule(TarballRule):
@@ -146,7 +146,7 @@ class ELFGnuRelroRule(TarballRule):
             missing_relro.append(entry_name)
 
         if missing_relro:
-            self.warnings = [("elffile-without-relro %s", i) for i in missing_relro]
+            self.warnings = [("elffile-without-relro %s", (i,)) for i in missing_relro]
 
 
 class ELFUnstrippedRule(TarballRule):
@@ -176,7 +176,7 @@ class ELFUnstrippedRule(TarballRule):
                 if section.name == ".symtab":
                     unstripped_binaries.append(entry_name)
         if unstripped_binaries:
-            self.warnings = [("elffile-unstripped %s", i) for i in unstripped_binaries]
+            self.warnings = [("elffile-unstripped %s", (i,)) for i in unstripped_binaries]
 
 
 class NoPIERule(TarballRule):
@@ -205,7 +205,7 @@ class NoPIERule(TarballRule):
                 nopie_binaries.append(entry_name)
 
         if nopie_binaries:
-            self.warnings = [("elffile-nopie %s", i) for i in nopie_binaries]
+            self.warnings = [("elffile-nopie %s", (i,)) for i in nopie_binaries]
 
 
 def _note_props(elffile, note_type, prop_type):
@@ -251,4 +251,4 @@ class ELFSHSTKRule(TarballRule):
             else:
                 noshstk_binaries.append(entry_name)
         if noshstk_binaries:
-            self.warnings = [("elffile-noshstk %s", i) for i in noshstk_binaries]
+            self.warnings = [("elffile-noshstk %s", (i,)) for i in noshstk_binaries]

@@ -32,4 +32,4 @@ class ExternalHooksRule(TarballRule):
         f.close()
         for command in self.hooked:
             if command in text:
-                self.warnings.append(("external-hooks %s", command))
+                self.warnings.append(("external-hooks %s", (command,)))

@@ -1,7 +1,7 @@
 # Copyright (C) 2003-2023 Namcap contributors, see AUTHORS for details.
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-from typing import Any
+from .types import Diagnostic
 
 """
 This module defines the base classes from which Namcap rules are derived
@@ -16,9 +16,9 @@ class AbstractRule(object):
     enable: bool = True
 
     def __init__(self):
-        self.errors: list[tuple[str, tuple[Any, ...]]] = []
-        self.warnings: list[tuple[str, tuple[Any, ...]]] = []
-        self.infos: list[tuple[str, tuple[Any, ...]]] = []
+        self.errors: list[Diagnostic] = []
+        self.warnings: list[Diagnostic] = []
+        self.infos: list[Diagnostic] = []
 
 
 class PkgInfoRule(AbstractRule):

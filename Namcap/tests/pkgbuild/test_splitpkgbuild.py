@@ -44,7 +44,7 @@ package_prog1() {
     def test_example1(self):
         "Example 1 : missing package_* function"
         r = self.run_on_pkg(self.pkgbuild1)
-        self.assertEqual(r.errors, [("missing-pkgfunction %s", "prog2")])
+        self.assertEqual(r.errors, [("missing-pkgfunction %s", ("prog2",))])
         self.assertEqual(r.warnings, [])
         self.assertEqual(r.infos, [])
 
@@ -96,6 +96,6 @@ package_prog2() {
     def test_example1(self):
         "Example 1: missing makedepend"
         r = self.run_on_pkg(self.pkgbuild1)
-        self.assertEqual(r.errors, [("missing-makedeps %s", str(["lib1", "lib2"]))])
+        self.assertEqual(r.errors, [("missing-makedeps %s", (str(["lib1", "lib2"]),))])
         self.assertEqual(r.warnings, [])
         self.assertEqual(r.infos, [])

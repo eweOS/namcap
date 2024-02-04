@@ -24,4 +24,4 @@ class package(TarballRule):
         if size > 0:
             ratio = docsize / float(size)
             if ratio > 0.50:
-                self.warnings.append(("lots-of-docs %f", ratio * 100))
+                self.warnings.append(("lots-of-docs %f", (ratio * 100,)))

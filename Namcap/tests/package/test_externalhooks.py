@@ -52,7 +52,7 @@ post_install() {
         self.assertEqual(r.errors, [])
         self.assertEqual(
             r.warnings,
-            [("external-hooks %s", "update-desktop-database"), ("external-hooks %s", "gtk-update-icon-cache")],
+            [("external-hooks %s", ("update-desktop-database",)), ("external-hooks %s", ("gtk-update-icon-cache",))],
         )
         self.assertEqual(r.infos, [])
 

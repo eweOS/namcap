@@ -23,7 +23,7 @@ class RedundantMakedepends(PkgbuildRule):
         redundant_makedeps.extend(set(pkginfo["makedepends"]) & set(pkginfo["depends"]))
 
         for i in redundant_makedeps:
-            self.warnings.append(("redundant-makedep %s", i))
+            self.warnings.append(("redundant-makedep %s", (i,)))
 
 
 class VCSMakedepends(PkgbuildRule):
@@ -66,4 +66,4 @@ class VCSMakedepends(PkgbuildRule):
                 missing.append(d)
 
         for i in missing:
-            self.warnings.append(("missing-vcs-makedeps %s", i))
+            self.warnings.append(("missing-vcs-makedeps %s", (i,)))

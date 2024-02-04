@@ -37,5 +37,5 @@ package() {
         self.assertEqual(r.errors, [])
         tag, value = r.warnings[0]
         self.assertEqual(tag, "lots-of-docs %f")
-        self.assertGreater(value, 50)
+        self.assertGreater(value, (50,))
         self.assertEqual(r.infos, [])

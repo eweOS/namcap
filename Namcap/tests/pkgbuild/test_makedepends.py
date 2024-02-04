@@ -40,7 +40,7 @@ package() {
         # Example 1
         r = self.run_on_pkg(self.pkgbuild1)
         self.assertEqual(r.errors, [])
-        self.assertEqual(set(r.warnings), set(("redundant-makedep %s", i) for i in ["lib1", "lib2"]))
+        self.assertEqual(set(r.warnings), set(("redundant-makedep %s", (i,)) for i in ["lib1", "lib2"]))
         self.assertEqual(r.infos, [])
 
 
@@ -83,7 +83,7 @@ package() {
         makedeps = ["breezy", "git", "mercurial", "subversion"]
         r = self.run_on_pkg(self.pkgbuild1)
         self.assertEqual(r.errors, [])
-        self.assertEqual(set(r.warnings), set(("missing-vcs-makedeps %s", i) for i in makedeps))
+        self.assertEqual(set(r.warnings), set(("missing-vcs-makedeps %s", (i,)) for i in makedeps))
         self.assertEqual(r.infos, [])
 
     def test_example2(self):

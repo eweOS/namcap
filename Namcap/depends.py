@@ -6,6 +6,8 @@
 import Namcap.tags
 from Namcap import package
 
+from .types import Diagnostic
+
 
 def single_covered(depend):
     "Returns full coverage tree of one package, with loops broken"
@@ -48,7 +50,9 @@ def getprovides(depends):
 
 
 def analyze_depends(pkginfo):
-    errors, warnings, infos = [], [], []
+    errors: list[Diagnostic] = []
+    warnings: list[Diagnostic] = []
+    infos: list[Diagnostic] = []
 
     # compute needed dependencies
     dependlist = set(pkginfo.detected_deps.keys())
@@ -74,11 +78,11 @@ def analyze_depends(pkginfo):
 
     # Common deps
     [
-        errors.append(("dependency-duplicated-optdepend %s", duplicated_optdepend))
+        errors.append(("dependency-duplicated-optdepend %s", (duplicated_optdepend,)))
         for duplicated_optdepend in explicitdepend & optdepend
     ]
     [
-        infos.append(("dependency-satisfied-optdepend %s", satisfied_optdepend))
+        infos.append(("dependency-satisfied-optdepend %s", (satisfied_optdepend,)))
         for satisfied_optdepend in implicitdepend & optdepend
     ]
 
@@ -119,7 +123,7 @@ def analyze_depends(pkginfo):
         #   it is not in the depends as we see them
         #   it does not pull some needed dependency which provides it
         if i not in dependlist and i not in allprovides:
-            warnings.append(("dependency-not-needed %s", i))
-    infos.append(("depends-by-namcap-sight depends=(%s)", " ".join(dependlist)))
+            warnings.append(("dependency-not-needed %s", (i,)))
+    infos.append(("depends-by-namcap-sight depends=(%s)", (" ".join(dependlist),)))
 
     return errors, warnings, infos

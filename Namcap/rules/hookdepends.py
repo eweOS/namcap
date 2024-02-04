@@ -27,4 +27,4 @@ class HookDependsRule(TarballRule):
                 continue
             pattern = re.compile(subrule["path"])
             if any(pattern.search(n) for n in names):
-                self.warnings.append(("external-hooks-unneeded %s", dep))
+                self.warnings.append(("external-hooks-unneeded %s", (dep,)))

@@ -41,4 +41,4 @@ class package(PkgbuildRule):
             for j in arrayvars:
                 if m and m.group(1) == j:
                     if not m.group(2).startswith("("):
-                        self.warnings.append(("variable-not-array %s", j))
+                        self.warnings.append(("variable-not-array %s", (j,)))

@@ -32,7 +32,7 @@ package() {
             f.write(self.pkgbuild)
         self.run_makepkg()
         pkg, r = self.run_rule_on_tarball(os.path.join(self.tmpdir, pkgfile), Namcap.rules.elffiles.ELFPaths)
-        self.assertEqual(r.errors, [("elffile-not-in-allowed-dirs %s", "usr/share/something/binary")])
+        self.assertEqual(r.errors, [("elffile-not-in-allowed-dirs %s", ("usr/share/something/binary",))])
         self.assertEqual(r.warnings, [])
         self.assertEqual(r.infos, [])
 
@@ -66,7 +66,7 @@ package() {
         self.run_makepkg()
         pkg, r = self.run_rule_on_tarball(os.path.join(self.tmpdir, pkgfile), Namcap.rules.elffiles.ELFExecStackRule)
         self.assertEqual(r.errors, [])
-        self.assertEqual(r.warnings, [("elffile-with-execstack %s", "usr/bin/withexecstack")])
+        self.assertEqual(r.warnings, [("elffile-with-execstack %s", ("usr/bin/withexecstack",))])
         self.assertEqual(r.infos, [])
 
 
@@ -99,7 +99,7 @@ package() {
         self.run_makepkg()
         pkg, r = self.run_rule_on_tarball(os.path.join(self.tmpdir, pkgfile), Namcap.rules.elffiles.NoPIERule)
         self.assertEqual(r.errors, [])
-        self.assertEqual(r.warnings, [("elffile-nopie %s", "usr/bin/nopie")])
+        self.assertEqual(r.warnings, [("elffile-nopie %s", ("usr/bin/nopie",))])
         self.assertEqual(r.infos, [])
 
 
@@ -143,9 +143,9 @@ package() {
         self.assertEqual(
             r.warnings,
             [
-                ("elffile-noshstk %s", "usr/bin/fcf-protection-branch"),
-                ("elffile-noshstk %s", "usr/bin/fcf-protection-none"),
-                ("elffile-noshstk %s", "usr/bin/no-.note.gnu.property"),
+                ("elffile-noshstk %s", ("usr/bin/fcf-protection-branch",)),
+                ("elffile-noshstk %s", ("usr/bin/fcf-protection-none",)),
+                ("elffile-noshstk %s", ("usr/bin/no-.note.gnu.property",)),
             ],
         )
         self.assertEqual(r.infos, [])

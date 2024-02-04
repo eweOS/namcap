@@ -59,5 +59,5 @@ package() {
     def test_example2(self):
         r = self.run_on_pkg(self.pkgbuild2)
         self.assertEqual(r.errors, [])
-        self.assertEqual(r.warnings, [("specific-host-type-used %s", "i686")])
+        self.assertEqual(r.warnings, [("specific-host-type-used %s", ("i686",))])
         self.assertEqual(r.infos, [])

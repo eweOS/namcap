@@ -43,5 +43,5 @@ package() {
         "Variables in PKGBUILD are not an array"
         r = self.run_on_pkg(self.pkgbuild1)
         self.assertEqual(r.errors, [])
-        self.assertEqual(set(r.warnings), set(("variable-not-array %s", i) for i in ["depends", "license"]))
+        self.assertEqual(set(r.warnings), set(("variable-not-array %s", (i,)) for i in ["depends", "license"]))
         self.assertEqual(r.infos, [])

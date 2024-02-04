@@ -28,4 +28,4 @@ class package(PkgbuildRule):
                 continue
             if "${CARCH}" in line:
                 continue
-            self.warnings.append(("specific-host-type-used %s", match.group(1)))
+            self.warnings.append(("specific-host-type-used %s", (match.group(1),)))

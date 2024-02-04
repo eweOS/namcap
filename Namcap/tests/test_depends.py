@@ -16,15 +16,15 @@ class DependsTests(unittest.TestCase):
         expected_e = [("dependency-detected-not-included %s (%s)", ("pkg1", ""))]
         self.assertEqual(e, expected_e)
         self.assertEqual(w, [])
-        self.assertEqual(i, [("depends-by-namcap-sight depends=(%s)", "pkg1")])
+        self.assertEqual(i, [("depends-by-namcap-sight depends=(%s)", ("pkg1",))])
 
     def test_unneeded(self):
         self.pkginfo["depends"] = {"pkg1": []}
         e, w, i = Namcap.depends.analyze_depends(self.pkginfo)
-        expected_w = [("dependency-not-needed %s", "pkg1")]
+        expected_w = [("dependency-not-needed %s", ("pkg1",))]
         self.assertEqual(e, [])
         self.assertEqual(w, expected_w)
-        self.assertEqual(i, [("depends-by-namcap-sight depends=(%s)", "")])
+        self.assertEqual(i, [("depends-by-namcap-sight depends=(%s)", ("",))])
 
     def test_satisfied(self):
         # false negative test
