@@ -89,7 +89,7 @@ class PkgConfigDependenciesRule(TarballRule):
     description = "Checks dependencies caused by pkg-config files"
 
     def analyze(self, pkginfo, tar):
-        pclist = defaultdict(set)
+        pclist: dict[str, set[str]] = defaultdict(set)
         dependlist = {}
 
         # Detect dependencies from pkg-config files

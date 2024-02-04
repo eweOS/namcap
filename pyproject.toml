@@ -21,8 +21,7 @@ disable_error_code = """
     assignment,
     attr-defined,
     func-returns-value,
-    union-attr,
-    var-annotated
+    union-attr
 """
 disallow_incomplete_defs = true
 disallow_subclassing_any = true

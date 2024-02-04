@@ -14,7 +14,7 @@ class RedundantMakedepends(PkgbuildRule):
     description = "Check for redundant make dependencies"
 
     def analyze(self, pkginfo, pkgbuild):
-        redundant_makedeps = []
+        redundant_makedeps: list[str] = []
 
         if "makedepends" not in pkginfo:
             return

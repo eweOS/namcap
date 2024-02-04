@@ -27,7 +27,7 @@ def finddepends(pkgname, modules, gir_modules, gir_versions):
     dependlist = defaultdict(set)
     gir_dependlist = defaultdict(set)
 
-    knownlibs = defaultdict(set)
+    knownlibs: dict[str, str] = defaultdict(str)
     missinglibs = set()
     foundlibs = set()
     gir_foundlibs = set()
@@ -124,9 +124,9 @@ class PythonDependencyRule(TarballRule):
     description = "Checks python dependencies"
 
     def analyze(self, pkginfo, tar):
-        modules = defaultdict(set)
-        gir_modules = defaultdict(set)
-        gir_versions = defaultdict(str)
+        modules: dict[str, set[str]] = defaultdict(set)
+        gir_modules: dict[str, set[str]] = defaultdict(set)
+        gir_versions: dict[str, str] = defaultdict(str)
 
         for entry in tar:
             if not entry.isfile():

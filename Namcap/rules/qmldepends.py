@@ -51,7 +51,7 @@ class QmlDependencyRule(TarballRule):
     description = "Checks QML dependencies"
 
     def analyze(self, pkginfo, tar):
-        modules = defaultdict(set)
+        modules: dict[str, set[str]] = defaultdict(set)
         included_modules = []
 
         for entry in tar:

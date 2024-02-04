@@ -37,7 +37,7 @@ def getcovered(dependlist):
 
 
 def getprovides(depends):
-    provides = {}
+    provides: dict[str, set[str]] = {}
     for i in depends:
         provides[i] = set()
         pac = package.load_from_db(i)

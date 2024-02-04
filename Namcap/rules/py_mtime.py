@@ -63,7 +63,7 @@ def _try_tar(tar):
 def _split_all(path):
     "like os.path.split but splits every directory"
     p2 = path
-    dirs = []
+    dirs: list[str] = []
     while p2 and p2 != "/":
         p2, p3 = os.path.split(p2)
         dirs.insert(0, p3)

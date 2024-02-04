@@ -3,7 +3,7 @@
 
 import os
 
-tags = {}
+tags: dict[str, str] = {}
 
 DEFAULT_TAGS = "/usr/share/namcap/namcap-tags"
 

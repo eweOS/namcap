@@ -7,6 +7,8 @@ from collections import defaultdict
 import re
 import os
 import subprocess
+from typing import Literal, TypeAlias
+
 import Namcap.package
 from Namcap.ruleclass import TarballRule
 from Namcap.util import is_elf
@@ -16,7 +18,13 @@ from Namcap.rules.runpath import get_runpaths
 from elftools.elf.elffile import ELFFile
 from elftools.elf.dynamic import DynamicSection
 
-libcache = {"i686": {}, "x86-64": {}}
+Architecture: TypeAlias = Literal["i686", "x86-64"]
+
+libcache: dict[Architecture, dict[str, str]] = {"i686": {}, "x86-64": {}}
+
+_DependsMap: TypeAlias = dict[str, str]
+_LibMap: TypeAlias = dict[str, set[str]]
+_ProvidesMap: TypeAlias = dict[str, set[str]]
 
 
 def scanlibs(fileobj, filename, custom_libs, liblist, libdepends, libprovides):
@@ -35,7 +43,7 @@ def scanlibs(fileobj, filename, custom_libs, liblist, libdepends, libprovides):
             continue
         for tag in section.iter_tags():
             bitsize = elffile.elfclass
-            architecture = {32: "i686", 64: "x86-64"}[bitsize]
+            architecture: Architecture = {32: "i686", 64: "x86-64"}[bitsize]
             # DT_SONAME means it provides a library
             if tag.entry.d_tag == "DT_SONAME" and os.path.dirname(filename) in ["usr/lib", "usr/lib32"]:
                 soname = re.sub(r"\.so.*", ".so", tag.soname)
@@ -129,9 +137,9 @@ class SharedLibsRule(TarballRule):
     description = "Checks dependencies caused by linked shared libraries"
 
     def analyze(self, pkginfo, tar):
-        liblist = defaultdict(set)
-        libdepends = defaultdict(str)
-        libprovides = defaultdict(set)
+        liblist: _LibMap = defaultdict(set)
+        libdepends: _DependsMap = defaultdict(str)
+        libprovides: _ProvidesMap = defaultdict(set)
         dependlist = {}
         libdependlist = {}
         missing_provides = {}

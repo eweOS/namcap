@@ -36,7 +36,7 @@ def findowners(scriptlist):
       orphans -- a set of scripts not found
     """
 
-    pkglist = {}
+    pkglist: dict[str, set[str]] = {}
     scriptfound = set()
 
     for s in scriptlist:
@@ -61,7 +61,7 @@ class ShebangDependsRule(TarballRule):
     description = "Checks dependencies semi-smartly."
 
     def analyze(self, pkginfo, tar):
-        scriptlist = {}
+        scriptlist: dict[str, set[str]] = {}
 
         for entry in tar:
             if not entry.isfile():
