@@ -3,7 +3,7 @@
 
 from license_expression import BaseSymbol, LicenseSymbol, LicenseWithExceptionSymbol, get_spdx_licensing
 from Namcap.ruleclass import TarballRule
-from Namcap.package import load_from_db
+from Namcap.package import load_from_db, PacmanPackage
 from Namcap.util import is_debug
 from pathlib import Path
 from tarfile import TarFile, TarInfo
@@ -231,7 +231,7 @@ class package(TarballRule):
     name = "licensepkg"
     description = "Verifies license is included in a package file"
 
-    def analyze(self, pkginfo, tar: TarFile | None):
+    def analyze(self, pkginfo: PacmanPackage, tar: TarFile | None) -> None:
         # return early, as we do not check debug packages
         if is_debug(pkginfo):
             return
