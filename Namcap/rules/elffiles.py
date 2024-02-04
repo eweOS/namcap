@@ -54,7 +54,7 @@ class ELFPaths(TarballRule):
 
         que_elfdirs = [d for d in questionable_dirs if any(f.startswith(d) for f in questionable_elffiles)]
         self.errors = [("elffile-not-in-allowed-dirs %s", i) for i in invalid_elffiles]
-        self.errors.extend(("elffile-in-questionable-dirs %s", i) for i in que_elfdirs)
+        self.errors.extend(("elffile-in-questionable-dirs %s", (i,)) for i in que_elfdirs)
         self.infos = [("elffile-not-in-allowed-dirs %s", i) for i in questionable_elffiles]
 
 
