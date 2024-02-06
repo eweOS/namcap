@@ -2,10 +2,10 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 import os
-from typing import Callable, NoReturn
-import unittest
-import tempfile
 import shutil
+import tempfile
+import unittest
+from typing import Callable, NoReturn
 
 import Namcap.package
 import Namcap.ruleclass

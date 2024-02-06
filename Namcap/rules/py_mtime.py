@@ -6,6 +6,7 @@ Check for py timestamps that are ahead of pyc/pyo timestamps
 """
 
 import os
+
 from Namcap.package import load_mtree
 from Namcap.ruleclass import TarballRule
 

@@ -4,9 +4,9 @@
 import os
 from unittest.mock import patch
 
+import Namcap.rules.qmldepends
 from Namcap.package import pyalpm_handle
 from Namcap.tests.makepkg import MakepkgTest
-import Namcap.rules.qmldepends
 
 
 class _DbWithout:

@@ -2,8 +2,9 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 import os
-from Namcap.tests.makepkg import MakepkgTest
+
 import Namcap.rules.scrollkeeper
+from Namcap.tests.makepkg import MakepkgTest
 
 
 class ScrollkeeperTest(MakepkgTest):

@@ -2,8 +2,9 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 import os
-from Namcap.ruleclass import TarballRule
+
 from Namcap.package import load_from_db
+from Namcap.ruleclass import TarballRule
 from Namcap.util import is_debug
 
 

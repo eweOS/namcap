@@ -3,11 +3,12 @@
 
 """Checks dependencies resulting from pkg-config files."""
 
-from collections import defaultdict
 import os
 import shutil
 import subprocess
 import tempfile
+from collections import defaultdict
+
 import Namcap.package
 from Namcap.ruleclass import TarballRule
 

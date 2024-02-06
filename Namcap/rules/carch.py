@@ -4,6 +4,7 @@
 """Verifies that no specific host type is used"""
 
 import re
+
 from Namcap.ruleclass import PkgbuildRule
 
 

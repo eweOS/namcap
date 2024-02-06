@@ -2,8 +2,9 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 import os
-from Namcap.tests.makepkg import MakepkgTest
+
 import Namcap.rules.systemdlocation
+from Namcap.tests.makepkg import MakepkgTest
 
 
 class SystemdlocationTest(MakepkgTest):

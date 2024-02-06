@@ -2,15 +2,21 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 from types import ModuleType
+
 import Namcap.ruleclass
 
 # Tarball rules
+# PKGBUILD and metadata rules
 from . import (  # noqa: F401
     anyelf,
+    arrays,
+    badbackups,
+    carch,
     dbus1location,
     elffiles,
     emptydir,
     externalhooks,
+    extravars,
     fhs,
     filenames,
     fileownership,
@@ -18,43 +24,35 @@ from . import (  # noqa: F401
     hardlinks,
     hookdepends,
     infodirectory,
+    invalidstartdir,
     javafiles,
     libtool,
     licensepkg,
     lotsofdocs,
+    makedepends,
+    makepkgfunctions,
     missingbackups,
+    missingvars,
     pathdepends,
-    perllocal,
     pcdepends,
+    perllocal,
     permissions,
+    pkginfo,
+    pkgnameindesc,
     py_mtime,
     pydepends,
     qmldepends,
     rpath,
     runpath,
     scrollkeeper,
+    sfurl,
     shebangdepends,
-    sphinxbuildcachefiles,
     sodepends,
+    sphinxbuildcachefiles,
+    splitpkgbuild,
     symlink,
     systemdlocation,
     unusedsodepends,
-)
-
-# PKGBUILD and metadata rules
-from . import (  # noqa: F401
-    arrays,
-    badbackups,
-    carch,
-    extravars,
-    invalidstartdir,
-    makedepends,
-    makepkgfunctions,
-    missingvars,
-    pkginfo,
-    pkgnameindesc,
-    sfurl,
-    splitpkgbuild,
 )
 
 all_rules = {}

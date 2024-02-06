@@ -1,16 +1,15 @@
 # Copyright (C) 2003-2023 Namcap contributors, see AUTHORS for details.
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-import os
-import sys
-import subprocess
-import re
 import collections
 import gzip
 from typing import Any, TYPE_CHECKING
+import os
+import re
+import subprocess
+import sys
 
 import pyalpm
-
 import pycman.config
 
 

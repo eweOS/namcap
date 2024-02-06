@@ -5,8 +5,9 @@ import os
 import re
 import subprocess
 import tempfile
-from Namcap.util import is_elf
+
 from Namcap.ruleclass import TarballRule
+from Namcap.util import is_elf
 
 libre = re.compile(r"^\t(/.*)")
 lddfail = re.compile(r"^\tnot a dynamic executable")

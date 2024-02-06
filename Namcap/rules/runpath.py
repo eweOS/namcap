@@ -1,11 +1,11 @@
 # Copyright (C) 2003-2023 Namcap contributors, see AUTHORS for details.
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-from Namcap.util import is_elf
-from Namcap.ruleclass import TarballRule
-
-from elftools.elf.elffile import ELFFile
 from elftools.elf.dynamic import DynamicSection
+from elftools.elf.elffile import ELFFile
+
+from Namcap.ruleclass import TarballRule
+from Namcap.util import is_elf
 
 allowed = ["/usr/lib", "/usr/lib32", "/lib", "$ORIGIN", "${ORIGIN}"]
 allowed_toplevels = [s + "/" for s in allowed]

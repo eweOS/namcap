@@ -2,8 +2,9 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 import os
-from Namcap.tests.makepkg import MakepkgTest
+
 from Namcap.rules import fhs
+from Namcap.tests.makepkg import MakepkgTest
 
 
 class FHSTest(MakepkgTest):

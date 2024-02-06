@@ -11,6 +11,7 @@ select = [
 ]
 ignore = [
     "ISC001",  # incompatible with ruff format
+    "I",       # isort
 ]
 
 [tool.black]

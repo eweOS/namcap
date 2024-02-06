@@ -4,6 +4,7 @@
 """Checks for bad backup entries"""
 
 import re
+
 from Namcap.ruleclass import PkgbuildRule
 
 

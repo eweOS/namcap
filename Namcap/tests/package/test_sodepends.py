@@ -2,10 +2,12 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 import os
-from Namcap.tests.makepkg import MakepkgTest
-import Namcap.rules.sodepends
+
 from elftools.elf.dynamic import DynamicSection
 from elftools.elf.elffile import ELFFile
+
+import Namcap.rules.sodepends
+from Namcap.tests.makepkg import MakepkgTest
 
 
 def get_soname(filename):

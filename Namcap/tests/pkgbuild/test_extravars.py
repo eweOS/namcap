@@ -2,8 +2,9 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 import os
-from Namcap.tests.pkgbuild_test import PkgbuildTest
+
 import Namcap.rules.extravars
+from Namcap.tests.pkgbuild_test import PkgbuildTest
 
 
 class ExtravarsTest(PkgbuildTest):

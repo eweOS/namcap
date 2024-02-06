@@ -4,9 +4,10 @@
 """Checks dependencies on programs specified in shebangs."""
 
 import shutil
+
 import Namcap.package
-from Namcap.util import is_script, script_type
 from Namcap.ruleclass import TarballRule
+from Namcap.util import is_script, script_type
 
 
 def scanshebangs(fileobj, filename, scripts):

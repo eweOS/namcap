@@ -3,6 +3,7 @@
 
 import os
 import re
+
 from Namcap.ruleclass import TarballRule
 
 

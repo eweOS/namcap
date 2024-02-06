@@ -9,6 +9,7 @@ Anything fancier than this should get its own rule.
 """
 
 import re
+
 from Namcap.ruleclass import TarballRule
 
 

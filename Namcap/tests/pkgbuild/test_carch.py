@@ -1,8 +1,8 @@
 # Copyright (C) 2003-2023 Namcap contributors, see AUTHORS for details.
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-from Namcap.tests.pkgbuild_test import PkgbuildTest
 import Namcap.rules.carch as module
+from Namcap.tests.pkgbuild_test import PkgbuildTest
 
 
 class NamcapSpecialArchTest(PkgbuildTest):

@@ -3,15 +3,17 @@
 
 import os
 import tarfile
-import Namcap.rules.licensepkg
 from contextlib import nullcontext as does_not_raise
-from Namcap.tests.makepkg import MakepkgTest
-from Namcap.rules import licensepkg
 from pathlib import Path
-from pytest import mark, raises
-from license_expression import BaseSymbol, LicenseSymbol, LicenseWithExceptionSymbol
 from tarfile import TarInfo
 from typing import Any, ContextManager
+
+from license_expression import BaseSymbol, LicenseSymbol, LicenseWithExceptionSymbol
+from pytest import mark, raises
+
+import Namcap.rules.licensepkg
+from Namcap.rules import licensepkg
+from Namcap.tests.makepkg import MakepkgTest
 
 
 @mark.parametrize(

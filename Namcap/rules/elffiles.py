@@ -1,13 +1,13 @@
 # Copyright (C) 2003-2023 Namcap contributors, see AUTHORS for details.
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-from elftools.elf.elffile import ELFFile
 from elftools.elf.dynamic import DynamicSection
+from elftools.elf.elffile import ELFFile
 from elftools.elf.enums import ENUM_GNU_PROPERTY_X86_FEATURE_1_FLAGS
 from elftools.elf.sections import NoteSection, SymbolTableSection
 
-from Namcap.util import is_elf
 from Namcap.ruleclass import TarballRule
+from Namcap.util import is_elf
 
 # Valid directories for ELF files
 valid_dirs = ["bin/", "sbin/", "usr/bin/", "usr/sbin/", "lib/", "usr/lib/", "usr/lib32/"]

@@ -2,9 +2,9 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 import os
-import unittest
-import tempfile
 import shutil
+import tempfile
+import unittest
 
 import Namcap.package
 

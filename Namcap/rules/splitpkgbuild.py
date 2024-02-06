@@ -3,8 +3,8 @@
 
 "This module contains rules that check coherence of split PKGBUILDs."
 
-from Namcap.ruleclass import PkgbuildRule
 import Namcap.depends
+from Namcap.ruleclass import PkgbuildRule
 
 
 class PackageFunctionsRule(PkgbuildRule):

@@ -3,20 +3,20 @@
 
 """Checks dependencies resulting from linking of shared libraries."""
 
-from collections import defaultdict
-import re
 import os
+import re
 import subprocess
+from collections import defaultdict
 from typing import Literal, TypeAlias
+
+from elftools.elf.dynamic import DynamicSection
+from elftools.elf.elffile import ELFFile
 
 import Namcap.package
 from Namcap.ruleclass import TarballRule
-from Namcap.util import is_elf
 from Namcap.rules.rpath import get_rpaths
 from Namcap.rules.runpath import get_runpaths
-
-from elftools.elf.elffile import ELFFile
-from elftools.elf.dynamic import DynamicSection
+from Namcap.util import is_elf
 
 Architecture: TypeAlias = Literal["i686", "x86-64"]
 

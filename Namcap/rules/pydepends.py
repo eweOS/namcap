@@ -1,14 +1,15 @@
 # Copyright (C) 2003-2023 Namcap contributors, see AUTHORS for details.
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-from collections import defaultdict
 import ast
 import importlib
 import sys
 import sysconfig
+from collections import defaultdict
+
 import Namcap.package
-from Namcap.util import is_script, script_type
 from Namcap.ruleclass import TarballRule
+from Namcap.util import is_script, script_type
 
 
 def finddepends(pkgname, modules, gir_modules, gir_versions):

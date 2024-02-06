@@ -2,9 +2,10 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 import os
-from Namcap.tests.makepkg import MakepkgTest
+
 import Namcap.depends
 import Namcap.rules.pathdepends
+from Namcap.tests.makepkg import MakepkgTest
 
 
 class HiColorIconsTest(MakepkgTest):

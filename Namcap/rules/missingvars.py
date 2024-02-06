@@ -4,6 +4,7 @@
 """Checks for missing variables in PKGBUILD"""
 
 import re
+
 from Namcap.ruleclass import PkgbuildRule
 
 RE_IS_HEXNUMBER = re.compile(r"[0-9a-f]+")

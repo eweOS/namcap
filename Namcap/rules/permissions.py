@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 import stat
+
 from Namcap.ruleclass import TarballRule
 
 

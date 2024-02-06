@@ -3,9 +3,10 @@
 
 "These rules checks basic sanity of package metadata"
 
-import re
 import os
-from Namcap.ruleclass import PkgInfoRule, PkgbuildRule
+import re
+
+from Namcap.ruleclass import PkgbuildRule, PkgInfoRule
 from Namcap.util import is_debug
 
 

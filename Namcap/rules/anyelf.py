@@ -6,8 +6,9 @@ Check for ELF files to see if a package should be 'any' architecture
 """
 
 import re
-from Namcap.util import is_elf, is_static
+
 from Namcap.ruleclass import TarballRule
+from Namcap.util import is_elf, is_static
 
 
 class package(TarballRule):

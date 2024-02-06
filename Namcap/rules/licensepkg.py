@@ -1,12 +1,14 @@
 # Copyright (C) 2003-2023 Namcap contributors, see AUTHORS for details.
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-from license_expression import BaseSymbol, LicenseSymbol, LicenseWithExceptionSymbol, get_spdx_licensing
-from Namcap.ruleclass import TarballRule
-from Namcap.package import load_from_db, PacmanPackage
-from Namcap.util import is_debug
 from pathlib import Path
 from tarfile import TarFile, TarInfo
+
+from license_expression import BaseSymbol, LicenseSymbol, LicenseWithExceptionSymbol, get_spdx_licensing
+
+from Namcap.package import PacmanPackage, load_from_db
+from Namcap.ruleclass import TarballRule
+from Namcap.util import is_debug
 
 
 def get_license_canonicalized(license: str) -> str:
