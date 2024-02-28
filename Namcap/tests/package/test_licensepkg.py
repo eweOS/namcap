@@ -34,6 +34,21 @@ def test_get_license_canonicalized(input: str, result: str, expectation: Context
 
 
 @mark.parametrize(
+    "input, result",
+    [
+        ("LicenseRef-FOO+", "LicenseRef-FOO+"),
+        ("MIT", "MIT"),
+        ("MIT+", "MIT"),
+        ("Apache-2.0+", "Apache-2.0"),
+        ("GPL-3.0-only+", "GPL-3.0-only+"),
+        ("GPL-3.0-or-later+", "GPL-3.0-or-later+"),
+    ],
+)
+def test_strip_plus_from_license(input: str, result: str) -> None:
+    assert LicenseSymbol(result) == licensepkg.strip_plus_from_license(LicenseSymbol(input))
+
+
+@mark.parametrize(
     "input, result, expectation",
     [
         ("Foo", {LicenseSymbol("Foo")}, does_not_raise()),
@@ -41,12 +56,22 @@ def test_get_license_canonicalized(input: str, result: str, expectation: Context
         ("LicenseRef-FOO", {LicenseSymbol("LicenseRef-FOO")}, does_not_raise()),
         ("MIT AND MIT", {LicenseSymbol("MIT")}, does_not_raise()),
         ("MIT AND Apache-2.0", {LicenseSymbol("MIT"), LicenseSymbol("Apache-2.0")}, does_not_raise()),
+        ("MIT+ OR Apache-2.0+", {LicenseSymbol("MIT"), LicenseSymbol("Apache-2.0")}, does_not_raise()),
         (
             "Apache-2.0 OR (MIT WITH Bootloader-exception)",
             {
                 LicenseSymbol("Apache-2.0"),
                 LicenseWithExceptionSymbol(
                     LicenseSymbol("MIT"), LicenseSymbol("Bootloader-exception", is_exception=True)
+                ),
+            },
+            does_not_raise(),
+        ),
+        (
+            "Apache-2.0+ WITH Bootloader-exception",
+            {
+                LicenseWithExceptionSymbol(
+                    LicenseSymbol("Apache-2.0"), LicenseSymbol("Bootloader-exception", is_exception=True)
                 ),
             },
             does_not_raise(),
@@ -89,6 +114,7 @@ def test_get_uncommon_license_symbols(input: set[BaseSymbol], result: set[BaseSy
     [
         ({LicenseSymbol("GPL-3.0-or-later")}, set()),
         ({LicenseSymbol("LicenseRef-FOO")}, {LicenseSymbol("LicenseRef-FOO")}),
+        ({LicenseSymbol("GPL-3.0-only+")}, {LicenseSymbol("GPL-3.0-only+")}),
         (
             {
                 LicenseWithExceptionSymbol(

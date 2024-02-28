@@ -18,6 +18,26 @@ def get_license_canonicalized(license: str) -> str:
     return str(licensing.parse(license, strict=True))
 
 
+def strip_plus_from_license(license: BaseSymbol) -> BaseSymbol:
+    """Remove a "+" suffix from the license symbol if it contains one
+
+    The license_expression module does not support the SPDX "+" operator, but parses it as part of the license
+    symbol instead. This function strips the operator from the symbol if it is found.
+
+    License identifiers ending with "-only" or "-or-later" should not be used with the plus operator. If such
+    license identifier is detected, the plus operator is left intact and this will be later reported as an
+    unknown license symbol.
+    """
+    license_str = str(license)
+    if license_str[-1] != "+" or license_str.startswith("LicenseRef-"):
+        return license
+    license_id = license_str[:-1]
+    if license_id.endswith(("-only", "-or-later")):
+        return license
+    else:
+        return LicenseSymbol(license_id)
+
+
 def get_license_symbols(license: str) -> set[BaseSymbol]:
     """Extract all license symbols from a license string
 
@@ -27,7 +47,15 @@ def get_license_symbols(license: str) -> set[BaseSymbol]:
     """
     licensing = get_spdx_licensing()
     symbols = licensing.parse(license, strict=True)
-    return symbols.symbols
+    license_symbols: set[BaseSymbol] = set()
+    for symbol in symbols.symbols:
+        if isinstance(symbol, LicenseWithExceptionSymbol):
+            license, exception = list(symbol.decompose())
+            license = strip_plus_from_license(license)
+            license_symbols.add(LicenseWithExceptionSymbol(license, exception))
+        else:
+            license_symbols.add(strip_plus_from_license(symbol))
+    return license_symbols
 
 
 def get_common_spdx_license_identifiers() -> set[BaseSymbol]:
