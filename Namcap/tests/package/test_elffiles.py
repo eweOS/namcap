@@ -109,7 +109,7 @@ pkgname=__namcap_test_noshstk
 pkgver=1.0
 pkgrel=1
 pkgdesc="A package"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 url="http://www.example.com/"
 license=('GPL')
 depends=('glibc')
@@ -121,6 +121,7 @@ build() {
   /usr/bin/gcc -o fcf-protection-branch main.c -fcf-protection=branch
   /usr/bin/gcc -o fcf-protection-full main.c -fcf-protection=full
   /usr/bin/gcc -o fcf-protection-none main.c -fcf-protection=none
+  /usr/bin/gcc -o fcf-protection-none-m32 main.c -fcf-protection=none -m32 -nostdlib
   /usr/bin/gcc -o fcf-protection-return main.c -fcf-protection=return
   /usr/bin/objcopy --remove-section=.note.gnu.property fcf-protection-full no-.note.gnu.property
 }
@@ -128,6 +129,7 @@ package() {
   install -D -m 644 "${srcdir}/fcf-protection-branch" "${pkgdir}/usr/bin/fcf-protection-branch"
   install -D -m 644 "${srcdir}/fcf-protection-full" "${pkgdir}/usr/bin/fcf-protection-full"
   install -D -m 644 "${srcdir}/fcf-protection-none" "${pkgdir}/usr/bin/fcf-protection-none"
+  install -D -m 644 "${srcdir}/fcf-protection-none-m32" "${pkgdir}/usr/bin/fcf-protection-none-m32"
   install -D -m 644 "${srcdir}/fcf-protection-return" "${pkgdir}/usr/bin/fcf-protection-return"
   install -D -m 644 "${srcdir}/no-.note.gnu.property" "${pkgdir}/usr/bin/no-.note.gnu.property"
 }

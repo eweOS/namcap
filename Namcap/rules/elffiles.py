@@ -238,7 +238,7 @@ class ELFSHSTKRule(TarballRule):
         noshstk_binaries = []
 
         for elffile, entry_name in elf_files_from_tar(tar):
-            if ".debug" in entry_name:
+            if ".debug" in entry_name or elffile["e_machine"] != "EM_X86_64":
                 continue
             for prop in _note_props(
                 elffile,
