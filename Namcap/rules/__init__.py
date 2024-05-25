@@ -64,5 +64,5 @@ for name, value in dict(locals()).items():
     if name == "Namcap.ruleclass":
         continue
     for n, v in value.__dict__.items():
-        if type(v) == type and issubclass(v, Namcap.ruleclass.AbstractRule) and hasattr(v, "name"):
+        if isinstance(v, type) and issubclass(v, Namcap.ruleclass.AbstractRule) and hasattr(v, "name"):
             all_rules[v.name] = v
