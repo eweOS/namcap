@@ -8,9 +8,12 @@ and how they are meant to be used.
 
 from abc import ABC, abstractmethod
 from tarfile import TarFile
+from typing import TYPE_CHECKING
 
 from .package import PacmanPackage
-from .types import Diagnostic
+
+if TYPE_CHECKING:
+    from .types import Diagnostic
 
 
 class AbstractRule(ABC):

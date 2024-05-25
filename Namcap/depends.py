@@ -3,10 +3,13 @@
 
 """Checks dependencies semi-smartly."""
 
+from typing import TYPE_CHECKING
+
 import Namcap.tags
 from Namcap import package
 
-from .types import Diagnostic
+if TYPE_CHECKING:
+    from .types import Diagnostic
 
 
 def single_covered(depend):

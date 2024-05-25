@@ -7,13 +7,15 @@ import subprocess
 import re
 import collections
 import gzip
-from typing import Any
+from typing import Any, TYPE_CHECKING
 
 import pyalpm
 
 import pycman.config
 
-from .types import FormatArgs
+
+if TYPE_CHECKING:
+    from .types import FormatArgs
 
 _pyalpm_version_tuple = tuple(int(n) for n in pyalpm.version().split("."))
 if _pyalpm_version_tuple < (0, 5):

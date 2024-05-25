@@ -7,6 +7,7 @@ select = [
     "F",       # pyflakes
     "ISC",     # flake8-implicit-str-concat
     "PIE",     # flake8-pie
+    "TCH",     # flake8-type-checking
 ]
 ignore = [
     "ISC001",  # incompatible with ruff format
