@@ -44,6 +44,7 @@ class NonUniqueSourcesRule(PkgbuildRule):
 
     def analyze(self, pkginfo, tar):
         for source_file in pkginfo["source"]:
+            source_file = source_file.split("#")[0]
             if "::" not in source_file and re.match(
                 r"^[vV]?(([0-9]){8}|([0-9]+\.?)+)\.", os.path.basename(source_file)
             ):
