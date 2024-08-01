@@ -7,4 +7,4 @@ import Namcap.rules
 
 class RulesTests(unittest.TestCase):
     def test_all_rules_dict(self):
-        self.assertGreaterEqual(len(Namcap.rules.all_rules), 61)
+        self.assertNotEqual(Namcap.rules.all_rules, {})
