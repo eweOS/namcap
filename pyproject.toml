@@ -15,6 +15,20 @@ ignore = [
 [tool.black]
 line-length = 120
 
+[tool.coverage.path]
+source = "Namcap"
+
+[tool.coverage.report]
+omit = ["Namcap/tests/*"]
+precision = 2
+show_missing = true
+
+[tool.coverage.run]
+branch = true
+command_line = "-m pytest -vv"
+omit = ["Namcap/tests/*"]
+relative_files = true
+
 [tool.mypy]
 check_untyped_defs = true
 disallow_any_generics = true
