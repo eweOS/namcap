@@ -95,7 +95,7 @@ class PkgConfigDependenciesRule(TarballRule):
         # Detect dependencies from pkg-config files
         scanpcfiles(tar, pclist)
 
-        # Find the packages wich contain the pkg-config files
+        # Find the packages which contain the pkg-config files
         dependlist, orphans = finddepends(pclist)
 
         # Handle "no package associated" errors

@@ -183,7 +183,7 @@ class SharedLibsRule(TarballRule):
             ]
         )
 
-        # Hanle when a required soname does not provided by the associated package yet
+        # Handle when a required soname does not provided by the associated package yet
         self.infos.extend(
             [
                 ("libdepends-missing-provides %s %s (%s)", (i, missing_provides[i], str(list(liblist[libdepends[i]]))))

@@ -20,7 +20,7 @@ namcap (3.4.1)
     - Use .pc files from packages not matching ones from host system
     - Use raw strings to disambiguate regular expressions
     - Copy-edit wording of tags
-    - Fix import path scopeing in tests
+    - Fix import path scoping in tests
     - Refresh licensing, author lists, testing tips, and other info in docs
     - Reformat and lint entire codebase (via black & ruff)
 
@@ -73,7 +73,7 @@ namcap (3.2.8)
     - check for RELRO in ELF files (FS#26435)
     - warn on use of undocumented makepkg functions (FS#43502)
     - more robust parsing (FS#53161)
-    - packages can symlink to files in depenencies (FS#53282)
+    - packages can symlink to files in dependencies (FS#53282)
     - warn on unstripped files (FS#27485)
     - better file handling (FS#57193)
     - FULL RELRO check

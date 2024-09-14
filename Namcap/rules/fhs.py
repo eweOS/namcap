@@ -54,7 +54,7 @@ class FHSRule(TarballRule):
                 name += "/"
 
             # check for files in wrong dirs, directory itself will be
-            # catched by emptydirs rule
+            # caught by emptydirs rule
             if name in forbidden_paths:
                 continue
             bad_dirs = (name.startswith(dirname) for dirname in forbidden_paths)
