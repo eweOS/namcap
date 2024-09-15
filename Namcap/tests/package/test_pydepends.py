@@ -15,11 +15,11 @@ pkgdesc="A package"
 arch=('any')
 url="http://www.example.com/"
 license=('GPL-3.0-or-later')
-depends=('python-six')
+depends=('python')
 source=()
 build() {
   cd "${srcdir}"
-  echo "import six, pyalpm" > main.py
+  echo "import importlib, pyalpm" > main.py
   echo "(^y^)" > invalid.py
 }
 package() {
