@@ -31,7 +31,7 @@ def open_package(filename):
         if ".PKGINFO" not in tar.getnames():
             tar.close()
             return None
-    except IOError:
+    except OSError:
         if tar:
             tar.close()
         return None
