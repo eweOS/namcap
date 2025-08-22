@@ -18,4 +18,4 @@ class package(PkgbuildRule):
                 call = match.group(1)
                 hits.add(call)
         for i in hits:
-            self.warnings.append(("makepkg-function-used %s", i))
+            self.warnings.append(("makepkg-function-used %s", (i,)))

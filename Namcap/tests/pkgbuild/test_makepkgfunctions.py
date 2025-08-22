@@ -43,5 +43,5 @@ package() {
         bad_calls = ["msg", "msg2", "warning", "error", "plain"]
         r = self.run_on_pkg(self.pkgbuild1)
         self.assertEqual(r.errors, [])
-        self.assertEqual(set(r.warnings), set(("makepkg-function-used %s", i) for i in bad_calls))
+        self.assertEqual(set(r.warnings), set(("makepkg-function-used %s", (i,)) for i in bad_calls))
         self.assertEqual(r.infos, [])
