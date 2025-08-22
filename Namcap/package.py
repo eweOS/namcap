@@ -143,7 +143,7 @@ class PacmanPackage(collections.abc.MutableMapping[str, Any]):
     def __delitem__(self, key):
         del self._data[self.canonical_varname(key)]
 
-    def process_strings(self):
+    def process_strings(self) -> None:
         """
         Turn all the instance properties listed in self.strings into strings instead of lists
         """
@@ -152,7 +152,7 @@ class PacmanPackage(collections.abc.MutableMapping[str, Any]):
                 if isinstance(self[i], list):
                     self[i] = self[i][0]
 
-    def clean_depends(self):
+    def clean_depends(self) -> None:
         """
         Strip all the depend version info off ('neon>=0.25.5-4' => 'neon').
         Also clean our optdepends and remove any trailing description.
@@ -172,7 +172,7 @@ class PacmanPackage(collections.abc.MutableMapping[str, Any]):
             self["orig_provides"] = self["provides"]
             self["provides"] = [strip_depend_info(d) for d in self["orig_provides"]]
 
-    def process(self):
+    def process(self) -> None:
         """
         After all the text processing happens, call this to sanitize the PacmanPackage object a bit
         """

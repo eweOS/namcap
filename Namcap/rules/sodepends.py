@@ -121,7 +121,7 @@ def finddepends(libdepends):
     return dependlist, libdependlist, orphans, missing_provides
 
 
-def filllibcache():
+def filllibcache() -> None:
     var = subprocess.Popen(
         "ldconfig -p", env={"LANG": "C"}, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
     ).communicate()

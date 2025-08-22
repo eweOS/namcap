@@ -18,7 +18,7 @@ class AbstractRule(ABC):
 
     enable: bool = True
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.errors: list[Diagnostic] = []
         self.warnings: list[Diagnostic] = []
         self.infos: list[Diagnostic] = []
