@@ -9,7 +9,7 @@ class package(PkgbuildRule):
     name = "makepkgfunctions"
     description = "Looks for calls to makepkg functionality"
 
-    def analyze(self, pkginfo, tar):
+    def analyze(self, pkginfo, pkgbuild):
         bad_calls = ["msg", "msg2", "warning", "error", "plain"]
         regex = re.compile(r"^\s+(%s) " % "|".join(bad_calls))
         hits = set()
