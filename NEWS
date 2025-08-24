@@ -1,3 +1,16 @@
+namcap (3.6.0)
+    - Allow rules to be disabled by default
+    - Allow namcap-devel to be run from any directory
+    - Support '+' in license expressions
+    - New unreproducible sphinx cache file rule
+    - New dbus services improperly installed in /etc rule
+    - Introduce typechecking using mypy and extend ruff linting rules
+    - Don't crash on missing description, only throw error lint
+    - Remove python-six from tests
+    - Fix safeguards against false positives for QML dependency check
+    - Limit shadow stack check to x86_64 binaries
+    - Change from getopt to argparse
+
 namcap (3.5.2)
     - Improve and streamline license issue related messages
 
