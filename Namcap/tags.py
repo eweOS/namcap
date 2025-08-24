@@ -8,7 +8,7 @@ tags: dict[str, str] = {}
 DEFAULT_TAGS = "/usr/share/namcap/namcap-tags"
 
 
-def load_tags(filename=None, machine=False):
+def load_tags(filename: str | None = None, machine: bool = False) -> None:
     "Loads tags from the given filename"
     global tags
     tags = {}
@@ -30,7 +30,7 @@ def load_tags(filename=None, machine=False):
             tags[machinetag] = humantag
 
 
-def format_message(msg):
+def format_message(msg: tuple[str, str]) -> str:
     """
     Formats a tuple (tag, data)
     """

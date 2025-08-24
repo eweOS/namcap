@@ -2,5 +2,5 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 
-def get_version():
+def get_version() -> str:
     return "3.6.0"

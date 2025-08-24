@@ -3,7 +3,8 @@
 
 import collections
 import gzip
-from typing import Any, TYPE_CHECKING
+from tarfile import TarFile
+from typing import Any, TYPE_CHECKING, Generator
 import os
 import re
 import subprocess
@@ -26,7 +27,7 @@ DEPENDS_RE = re.compile(r"([^<>=:]+)([<>]?=.*)?(: .*)?")
 SODEPENDS_RE = re.compile(r"([^:]+)(: .*)?")
 
 
-def strip_depend_info(value):
+def strip_depend_info(value: str) -> str:
     """
     Strip all the depend version info off ('neon>=0.25.5-4' => 'neon'), keep soname versions.
     Also remove any trailing description (for optdepends)
@@ -217,7 +218,7 @@ def load_from_pkgbuild(path):
     return ret
 
 
-def load_from_alpm(pmpkg):
+def load_from_alpm(pmpkg: pyalpm.Package) -> PacmanPackage:
     variables = [
         "name",
         "version",
@@ -245,7 +246,7 @@ def load_from_alpm(pmpkg):
     return PacmanPackage(data=values)
 
 
-def load_from_tarball(path):
+def load_from_tarball(path: str) -> PacmanPackage | None:
     try:
         p = pyalpm_handle.load_pkg(path)
     except pyalpm.error:
@@ -269,7 +270,7 @@ def load_from_db(pkgname, dbname=None):
     return p
 
 
-def load_testing_package(pkgname):
+def load_testing_package(pkgname: str) -> PacmanPackage | None:
     "Loads the testing version of a package, None if not found."
     testing_dbs = [
         db for db in pyalpm_handle.get_syncdbs() if db.name in ("core-testing", "multilib-testing", "extra-testing")
@@ -278,6 +279,8 @@ def load_testing_package(pkgname):
         p = db.get_pkg(pkgname)
         if p is not None:
             return load_from_alpm(p)
+
+    return None
 
 
 def get_installed_packages():
@@ -291,19 +294,21 @@ def lookup_provider(pkgname, db):
             return pkg
 
 
-def mtree_line(line):
+def mtree_line(line: str) -> tuple[str, dict[str, str]]:
     "returns head, {key:value}"
     # todo, un-hex the escaped chars
-    head, _, kvs = line.partition(" ")
-    kvs = dict(kv.split("=") for kv in kvs.split(" "))
+    head, _, values = line.partition(" ")
+    kvs = dict(kv.split("=") for kv in values.split(" "))
     return head, kvs
 
 
-def load_mtree(tar):
+def load_mtree(tar: TarFile) -> Generator[tuple[str, dict[str, str]]]:
     "takes a tar object, returns (path, {attributes})"
     if ".MTREE" not in tar.getnames():
         raise StopIteration
     zfile = tar.extractfile(".MTREE")
+    if zfile is None:
+        raise IOError(".MTREE missing from tar archive")
     text = gzip.open(zfile).read().decode("utf-8")
     defaults = {}
     for line in text.split("\n"):
@@ -314,7 +319,7 @@ def load_mtree(tar):
         head, kvs = mtree_line(line)
         if head == "/set":
             defaults = kvs
-        attr = {}
+        attr: dict[str, str] = {}
         attr.update(defaults)
         attr.update(kvs)
         yield head, attr
