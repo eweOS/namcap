@@ -17,10 +17,6 @@ import pycman.config
 if TYPE_CHECKING:
     from .types import FormatArgs
 
-_pyalpm_version_tuple = tuple(int(n) for n in pyalpm.version().split("."))
-if _pyalpm_version_tuple < (0, 5):
-    raise DeprecationWarning("pyalpm versions <0.5 are no longer supported")
-
 pyalpm_handle = pycman.config.init_with_config("/etc/pacman.conf")
 
 DEPENDS_RE = re.compile(r"([^<>=:]+)([<>]?=.*)?(: .*)?")
