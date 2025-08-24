@@ -62,6 +62,7 @@ def process_realpackage(package, modules):
     pkginfo: PacmanPackage | None = load_from_tarball(package)
     if pkginfo is None:
         print(f"Error: Loading package from {package} failed")
+        pkgtar.close()
         return 1
 
     # Loop through each one, load them apply if possible
@@ -89,6 +90,8 @@ def process_realpackage(package, modules):
     show_messages(pkginfo["name"], "W", warns)
     if info_reporting:
         show_messages(pkginfo["name"], "I", infos)
+
+    pkgtar.close()
 
 
 def process_pkginfo(pkginfo, modules):
