@@ -5,6 +5,7 @@ import ast
 import importlib
 import sys
 import sysconfig
+import warnings
 from collections import defaultdict
 
 import Namcap.package
@@ -81,11 +82,17 @@ def finddepends(pkgname, modules, gir_modules, gir_versions):
 
 
 def get_imports(fileobj, filename, modules, gir_modules, gir_versions):
+    # Ignore SyntaxWarnings not applicable to us
+    warnings.filterwarnings("ignore", category=SyntaxWarning)
+
     try:
         root = ast.parse(fileobj.read())
     except (SyntaxError, ValueError):
+        warnings.resetwarnings()
         # ast.parse() uses compile(), which may raise SyntaxError or ValueError
         return
+    finally:
+        warnings.resetwarnings()
 
     for node in ast.walk(root):
         if isinstance(node, ast.Import):
