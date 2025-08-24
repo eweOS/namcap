@@ -272,7 +272,7 @@ def load_from_db(pkgname, dbname=None):
 def load_testing_package(pkgname):
     "Loads the testing version of a package, None if not found."
     testing_dbs = [
-        db for db in pyalpm_handle.get_syncdbs() if db.name in ("testing", "multilib-testing", "community-testing")
+        db for db in pyalpm_handle.get_syncdbs() if db.name in ("core-testing", "multilib-testing", "extra-testing")
     ]
     for db in testing_dbs:
         p = db.get_pkg(pkgname)
