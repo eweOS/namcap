@@ -13,16 +13,16 @@ pkgname=__namcap_test_unusedsodepends
 pkgver=1.0
 pkgrel=1
 pkgdesc="A package"
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64' 'aarch64' 'riscv64' 'loongarch64')
 url="http://www.example.com/"
 license=('GPL-3.0-or-later')
-depends=('glibc')
+depends=('musl')
 source=()
 options=(!purge !zipman)
 build() {
   cd "${srcdir}"
   echo "int main() { return 0; }" > main.c
-  /usr/bin/gcc -o main main.c -lm
+  /usr/bin/cc -o main main.c -lm
 }
 package() {
   install -D -m 755 "$srcdir/main" "$pkgdir/usr/bin/evilprogram"

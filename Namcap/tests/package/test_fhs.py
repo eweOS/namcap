@@ -13,10 +13,10 @@ pkgname=__namcap_test_nonfhs
 pkgver=1.0
 pkgrel=1
 pkgdesc="A package"
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64' 'aarch64' 'riscv64' 'loongarch64')
 url="http://www.example.com/"
 license=('GPL-3.0-or-later')
-depends=('glibc')
+depends=('musl')
 source=()
 build() {
   true
@@ -58,10 +58,10 @@ pkgname=__namcap_test_nonfhs
 pkgver=1.0
 pkgrel=1
 pkgdesc="A package"
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64' 'aarch64' 'riscv64' 'loongarch64')
 url="http://www.example.com/"
 license=('GPL-3.0-or-later')
-depends=('glibc')
+depends=('musl')
 source=()
 build() {
   true
@@ -88,10 +88,10 @@ pkgname=__namcap_test_nonfhs
 pkgver=1.0
 pkgrel=1
 pkgdesc="A package"
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64' 'aarch64' 'riscv64' 'loongarch64')
 url="http://www.example.com/"
 license=('GPL-3.0-or-later')
-depends=('glibc')
+depends=('musl')
 source=()
 build() {
   true

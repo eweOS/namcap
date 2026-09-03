@@ -30,9 +30,9 @@ class DependsTests(unittest.TestCase):
     def test_satisfied(self):
         # false negative test
         self.pkginfo["depends"] = {"readline": []}
-        self.pkginfo.detected_deps = {"glibc": [], "readline": []}
+        self.pkginfo.detected_deps = {"musl": [], "readline": []}
         e, w, i = Namcap.depends.analyze_depends(self.pkginfo)
-        expected_w = [("dependency-implicitly-satisfied %s (%s)", ("glibc", ""))]
+        expected_w = [("dependency-implicitly-satisfied %s (%s)", ("musl", ""))]
         self.assertEqual(e, [])
         self.assertEqual(w, expected_w)
         # info is verbose and beyond scope, skip it

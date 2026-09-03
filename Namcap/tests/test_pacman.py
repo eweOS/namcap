@@ -16,10 +16,10 @@ pkgname=mypackage
 pkgver=1.0
 pkgrel=1
 pkgdesc="A package"
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64' 'aarch64' 'riscv64' 'loongarch64')
 url="http://www.example.com/"
 license=('GPL-3.0-or-later')
-depends=('glibc' 'foobar')
+depends=('musl' 'foobar')
 optdepends=('libabc: provides the abc feature')
 provides=('yourpackage=0.9')
 options=('!libtool')
@@ -65,8 +65,8 @@ class PkgbuildLoaderTests(unittest.TestCase):
         self.assertEqual(self.pkginfo["url"], "http://www.example.com/")
 
     def test_depends(self):
-        self.assertEqual(self.pkginfo["depends"], ["glibc", "foobar"])
-        self.assertEqual(self.pkginfo["orig_depends"], ["glibc", "foobar"])
+        self.assertEqual(self.pkginfo["depends"], ["musl", "foobar"])
+        self.assertEqual(self.pkginfo["orig_depends"], ["musl", "foobar"])
 
     def test_optdeps(self):
         self.assertEqual(self.pkginfo["optdepends"], ["libabc"])

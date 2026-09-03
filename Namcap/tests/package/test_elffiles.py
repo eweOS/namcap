@@ -13,10 +13,10 @@ pkgname=__namcap_test_elffiles
 pkgver=1.0
 pkgrel=1
 pkgdesc="A package"
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64' 'aarch64' 'riscv64' 'loongarch64')
 url="http://www.example.com/"
 license=('GPL-3.0-or-later')
-depends=('glibc')
+depends=('musl')
 source=()
 options=(!purge !zipman)
 build() {
@@ -44,16 +44,16 @@ pkgname=__namcap_test_execstack
 pkgver=1.0
 pkgrel=1
 pkgdesc="A package"
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64' 'aarch64' 'riscv64' 'loongarch64')
 url="http://www.example.com/"
 license=('GPL-3.0-or-later')
-depends=('glibc')
+depends=('musl')
 source=()
 options=(!purge !zipman)
 build() {
   cd "${srcdir}"
   echo "int main() { return 0; }" > main.c
-  /usr/bin/gcc -o main -Wa,-execstack main.c
+  /usr/bin/cc -o main -Wa,-execstack main.c
 }
 package() {
   install -D -m 644 "${srcdir}/main" "${pkgdir}/usr/bin/withexecstack"
@@ -77,16 +77,16 @@ pkgname=__namcap_test_nopie
 pkgver=1.0
 pkgrel=1
 pkgdesc="A package"
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64' 'aarch64' 'riscv64' 'loongarch64')
 url="http://www.example.com/"
 license=('GPL-3.0-or-later')
-depends=('glibc')
+depends=('musl')
 source=()
 options=(!purge !zipman)
 build() {
   cd "${srcdir}"
   echo "int main() { return 0; }" > main.c
-  /usr/bin/gcc -o main main.c -no-pie
+  /usr/bin/cc -o main main.c -no-pie
 }
 package() {
   install -D -m 644 "${srcdir}/main" "${pkgdir}/usr/bin/nopie"
@@ -113,17 +113,17 @@ pkgdesc="A package"
 arch=('x86_64')
 url="http://www.example.com/"
 license=('GPL')
-depends=('glibc')
+depends=('musl')
 source=()
 options=(!purge !zipman)
 build() {
   cd "${srcdir}"
   echo "int main() { return 0; }" > main.c
-  /usr/bin/gcc -o fcf-protection-branch main.c -fcf-protection=branch
-  /usr/bin/gcc -o fcf-protection-full main.c -fcf-protection=full
-  /usr/bin/gcc -o fcf-protection-none main.c -fcf-protection=none
-  /usr/bin/gcc -o fcf-protection-none-m32 main.c -fcf-protection=none -m32 -nostdlib
-  /usr/bin/gcc -o fcf-protection-return main.c -fcf-protection=return
+  /usr/bin/cc -o fcf-protection-branch main.c -fcf-protection=branch
+  /usr/bin/cc -o fcf-protection-full main.c -fcf-protection=full
+  /usr/bin/cc -o fcf-protection-none main.c -fcf-protection=none
+  /usr/bin/cc -o fcf-protection-none-m32 main.c -fcf-protection=none -m32 -nostdlib
+  /usr/bin/cc -o fcf-protection-return main.c -fcf-protection=return
   /usr/bin/objcopy --remove-section=.note.gnu.property fcf-protection-full no-.note.gnu.property
 }
 package() {
