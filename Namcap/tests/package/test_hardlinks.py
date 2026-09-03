@@ -23,9 +23,9 @@ build() {
 }
 package() {
   mkdir -p "${pkgdir}/usr/bin"
-  mkdir -p "${pkgdir}/usr/sbin"
+  mkdir -p "${pkgdir}/usr/sbin-test"
   touch "${pkgdir}/usr/bin/prog1"
-  ln "${pkgdir}/usr/bin/prog1" "${pkgdir}/usr/sbin/prog2"
+  ln "${pkgdir}/usr/bin/prog1" "${pkgdir}/usr/sbin-test/prog2"
 }
 """
 
@@ -37,6 +37,6 @@ package() {
         self.run_makepkg()
         pkg, r = self.run_rule_on_tarball(os.path.join(self.tmpdir, pkgfile), Namcap.rules.hardlinks.package)
         errors = [(s, set(tup)) for (s, tup) in r.errors]
-        self.assertEqual(errors, [("cross-dir-hardlink %s %s", set(("usr/bin/prog1", "usr/sbin/prog2")))])
+        self.assertEqual(errors, [("cross-dir-hardlink %s %s", set(("usr/bin/prog1", "usr/sbin-test/prog2")))])
         self.assertEqual(r.warnings, [])
         self.assertEqual(r.infos, [])
