@@ -24,7 +24,7 @@ build() {
 package() {
   mkdir -p ${pkgdir}/usr/bin
   touch ${pkgdir}/usr/bin/program
-  chown root:storage ${pkgdir}/usr/bin/program
+  chown root:114514 ${pkgdir}/usr/bin/program
 }
 """
 
@@ -34,6 +34,6 @@ package() {
             f.write(self.pkgbuild)
         self.run_makepkg()
         pkg, r = self.run_rule_on_tarball(os.path.join(self.tmpdir, pkgfile), Namcap.rules.fileownership.package)
-        self.assertEqual(r.errors, [("incorrect-owner %s (%s:%s)", ("usr/bin/program", "root", "storage"))])
+        self.assertEqual(r.errors, [("incorrect-owner %s (%s:%s)", ("usr/bin/program", "root", "114514"))])
         self.assertEqual(r.warnings, [])
         self.assertEqual(r.infos, [])
