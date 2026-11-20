@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 import os
+import unittest
 
 import Namcap.rules.unusedsodepends
 from Namcap.tests.makepkg import MakepkgTest
@@ -29,6 +30,7 @@ package() {
 }
 """
 
+    @unittest.skipIf(os.path.realpath("/usr/bin/ldd").endswith("/libc.so"), "musl ldd does not support -r/-u")
     def test_unusedsodepends_files(self):
         "Package with binaries linking to unused shared libraries"
         pkgfile = "__namcap_test_unusedsodepends-1.0-1-%(arch)s.pkg.tar" % {"arch": self.arch}

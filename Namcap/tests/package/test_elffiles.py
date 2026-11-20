@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 import os
+import unittest
 
 import Namcap.rules.elffiles
 from Namcap.tests.makepkg import MakepkgTest
@@ -53,7 +54,7 @@ options=(!purge !zipman)
 build() {
   cd "${srcdir}"
   echo "int main() { return 0; }" > main.c
-  /usr/bin/cc -o main -Wa,-execstack main.c
+  /usr/bin/cc -o main -Wl,-z,execstack main.c
 }
 package() {
   install -D -m 644 "${srcdir}/main" "${pkgdir}/usr/bin/withexecstack"
@@ -104,6 +105,7 @@ package() {
         self.assertEqual(r.infos, [])
 
 
+@unittest.skipUnless(os.uname().machine == "x86_64", "shadow stack check is x86_64-only")
 class TestNoShadowStack(MakepkgTest):
     pkgbuild = """
 pkgname=__namcap_test_noshstk
@@ -121,6 +123,7 @@ build() {
   echo "int main() { return 0; }" > main.c
   /usr/bin/cc -o fcf-protection-branch main.c -fcf-protection=branch
   /usr/bin/cc -o fcf-protection-full main.c -fcf-protection=full
+  /usr/bin/cc -o fcf-protection-full-shstk main.c -fcf-protection=full -Wl,-z,shstk
   /usr/bin/cc -o fcf-protection-none main.c -fcf-protection=none
   /usr/bin/cc -o fcf-protection-none-m32 main.c -fcf-protection=none -m32 -nostdlib
   /usr/bin/cc -o fcf-protection-return main.c -fcf-protection=return
@@ -129,6 +132,7 @@ build() {
 package() {
   install -D -m 644 "${srcdir}/fcf-protection-branch" "${pkgdir}/usr/bin/fcf-protection-branch"
   install -D -m 644 "${srcdir}/fcf-protection-full" "${pkgdir}/usr/bin/fcf-protection-full"
+  install -D -m 644 "${srcdir}/fcf-protection-full-shstk" "${pkgdir}/usr/bin/fcf-protection-full-shstk"
   install -D -m 644 "${srcdir}/fcf-protection-none" "${pkgdir}/usr/bin/fcf-protection-none"
   install -D -m 644 "${srcdir}/fcf-protection-none-m32" "${pkgdir}/usr/bin/fcf-protection-none-m32"
   install -D -m 644 "${srcdir}/fcf-protection-return" "${pkgdir}/usr/bin/fcf-protection-return"
@@ -147,7 +151,9 @@ package() {
             r.warnings,
             [
                 ("elffile-noshstk %s", ("usr/bin/fcf-protection-branch",)),
+                ("elffile-noshstk %s", ("usr/bin/fcf-protection-full",)),
                 ("elffile-noshstk %s", ("usr/bin/fcf-protection-none",)),
+                ("elffile-noshstk %s", ("usr/bin/fcf-protection-return",)),
                 ("elffile-noshstk %s", ("usr/bin/no-.note.gnu.property",)),
             ],
         )
