@@ -39,6 +39,18 @@ def getcovered(dependlist):
     return covered
 
 
+def get_base_depends() -> set[str]:
+    """Return dependencies provided by the base package.
+
+    eweOS and Arch do not require packages to repeat the dependencies of
+    ``base`` in their own ``depends`` array.
+    """
+    base = package.load_from_db("base")
+    if base is None or "depends" not in base:
+        return set()
+    return {package.strip_depend_info(dep) for dep in base["depends"]}
+
+
 def getprovides(depends):
     provides: dict[str, set[str]] = {}
     for i in depends:
@@ -64,6 +76,7 @@ def analyze_depends(pkginfo):
     pkginfo.setdefault("depends", [])
     explicitdepend = set(pkginfo["depends"])
     implicitdepend = getcovered(explicitdepend)
+    basedepend = get_base_depends()
 
     # Include the optdepends from the PKGBUILD
     pkginfo.setdefault("optdepends", [])
@@ -97,6 +110,10 @@ def analyze_depends(pkginfo):
             continue
         # if the dependency is satisfied
         if i in explicitdepend or smartprovides[i] & explicitdepend:
+            infos.append(("dependency-detected-satisfied %s (%s)", (i, reason)))
+            continue
+        # dependencies of base are always installed
+        if i in basedepend or smartprovides[i] & basedepend:
             infos.append(("dependency-detected-satisfied %s (%s)", (i, reason)))
             continue
         # still not found, maybe it is specified as optional
