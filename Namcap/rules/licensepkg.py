@@ -199,13 +199,11 @@ def package_license_files(tar: TarFile | None, pkgname: str) -> tuple[dict[str, 
                 continue
             else:
                 break
-        # the license is a file
-        if (
-            member.isfile()
-            and not member.issym()
-            and member.name.startswith(f"usr/share/licenses/{pkgname}/")
-            and member.name != f"usr/share/licenses/{pkgname}"
-        ):
+        # the license is a file, either directly at usr/share/licenses/$pkgname
+        # (single-license layout) or below usr/share/licenses/$pkgname/
+        if member.isfile() and not member.issym() and member.name == f"usr/share/licenses/{pkgname}":
+            files[member.name] = True
+        elif member.isfile() and not member.issym() and member.name.startswith(f"usr/share/licenses/{pkgname}/"):
             files[member.name] = True
         # the license is a symlink, we'll check later
         if member.issym() and member.name.startswith(f"usr/share/licenses/{pkgname}/"):

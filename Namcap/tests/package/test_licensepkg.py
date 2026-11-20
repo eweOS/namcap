@@ -329,6 +329,34 @@ class LicenseFileTest(MakepkgTest):
         self.assertEqual(r.warnings, [])
         self.assertEqual(r.infos, [])
 
+    def test_license_file_directly_at_license_path(self):
+        pkgbuild = """
+            pkgname=__namcap_test_licensepkg
+            pkgver=1.0
+            pkgrel=1
+            pkgdesc="A package"
+            arch=('i686' 'x86_64' 'aarch64' 'riscv64' 'loongarch64')
+            url="http://www.example.com/"
+            license=('LicenseRef-DWTFYWL')
+            depends=('musl')
+            source=()
+            options=(!purge !zipman)
+            build() {
+              true
+            }
+            package() {
+              install -Dm644 /dev/null "${pkgdir}/usr/share/licenses/${pkgname}"
+            }
+            """
+        pkgfile = "__namcap_test_licensepkg-1.0-1-%(arch)s.pkg.tar" % {"arch": self.arch}
+        with open(os.path.join(self.tmpdir, "PKGBUILD"), "w") as f:
+            f.write(pkgbuild)
+        self.run_makepkg()
+        pkg, r = self.run_rule_on_tarball(os.path.join(self.tmpdir, pkgfile), Namcap.rules.licensepkg.package)
+        self.assertEqual(r.errors, [])
+        self.assertEqual(r.warnings, [])
+        self.assertEqual(r.infos, [])
+
     def test_missing_license_file_for_licenseref(self):
         pkgbuild = """
             pkgname=__namcap_test_licensepkg
