@@ -137,6 +137,10 @@ def filllibcache() -> None:
 
 
 class SharedLibsRule(TarballRule):
+    # eweOS has no ldconfig and uses unversioned SONAME provides; keep this
+    # check disabled until it understands the eweOS package database.
+    enable = False
+
     name = "sodepends"
     description = "Checks dependencies caused by linked shared libraries"
 

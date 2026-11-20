@@ -33,6 +33,10 @@ def get_unused_sodepends(filename):
 
 
 class package(TarballRule):
+    # musl's ldd is libc.so and does not implement -r/-u, so this rule is a
+    # no-op on eweOS.
+    enable = False
+
     name = "unusedsodepends"
     description = "Checks for unused dependencies caused by linked shared libraries"
 

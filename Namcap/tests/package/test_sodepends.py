@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 import os
+import unittest
 
 from elftools.elf.dynamic import DynamicSection
 from elftools.elf.elffile import ELFFile
@@ -20,6 +21,7 @@ def get_soname(filename):
                 return tag.soname
 
 
+@unittest.skip("sodepends is disabled by default on eweOS")
 class SoDependsTest(MakepkgTest):
     pkgbuild = """
 pkgname=__namcap_test_sodepends

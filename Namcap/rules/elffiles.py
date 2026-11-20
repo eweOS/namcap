@@ -116,6 +116,10 @@ class ELFGnuRelroRule(TarballRule):
     Introduced by FS#26435. Uses pyelftools to check for GNU_RELRO.
     """
 
+    # eweOS does not add -Wl,-z,now to LDFLAGS yet, so binaries only get
+    # GNU_RELRO without BIND_NOW and this check reports every package.
+    enable = False
+
     name = "elfgnurelro"
     description = "Check for FULL RELRO in ELF files."
 
