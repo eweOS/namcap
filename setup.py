@@ -17,7 +17,7 @@ setup(
     author_email="pacman-dev@archlinux.org",
     url="http://www.archlinux.org/",
     py_modules=["namcap"],
-    packages=find_packages(),
+    packages=find_packages(exclude=["Namcap.tests", "Namcap.tests.*"]),
     scripts=["scripts/namcap", "scripts/parsepkgbuild"],
     test_suite="Namcap.tests",
     data_files=DATAFILES,
