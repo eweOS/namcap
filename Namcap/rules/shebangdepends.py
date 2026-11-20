@@ -3,6 +3,7 @@
 
 """Checks dependencies on programs specified in shebangs."""
 
+import os
 import shutil
 
 import Namcap.package
@@ -45,8 +46,9 @@ def findowners(scriptlist):
         if not out:
             continue
 
-        # strip leading slash
-        scriptpath = out.lstrip("/")
+        # Resolve interpreter symlinks (for example /usr/sbin -> /usr/bin on
+        # merged-/usr systems) before looking for the owning package.
+        scriptpath = os.path.realpath(out).lstrip("/")
         for pkg in Namcap.package.get_installed_packages():
             pkg_files = [fname for fname, fsize, fmode in pkg.files]
             if scriptpath in pkg_files:
