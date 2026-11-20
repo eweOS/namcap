@@ -49,11 +49,10 @@ class SplitPkgMakedepsRule(PkgbuildRule):
 
         global_deps |= Namcap.depends.getcovered(global_deps)
 
-        # Read dependencies specified in subpackages
+        # Read make dependencies specified in subpackages. Runtime depends do
+        # not need to be build dependencies of the split package.
         local_deps = set()
         for s in pkginfo.subpackages:
-            if "depends" in s:
-                local_deps.update(s["depends"])
             if "makedepends" in s:
                 local_deps.update(s["makedepends"])
 

@@ -81,7 +81,8 @@ package_prog1() {
 }
 
 package_prog2() {
-  depends=("lib1" "lib2")
+  depends=("gtk2")
+  makedepends=("lib1" "lib2")
   cd "${srcdir}"/${pkgname}-${pkgver}
   ./configure --prefix=/usr
   make DESTDIR="${pkgdir}" install1
@@ -97,5 +98,12 @@ package_prog2() {
         "Example 1: missing makedepend"
         r = self.run_on_pkg(self.pkgbuild1)
         self.assertEqual(r.errors, [("missing-makedeps %s", (str(["lib1", "lib2"]),))])
+        self.assertEqual(r.warnings, [])
+        self.assertEqual(r.infos, [])
+
+    def test_runtime_depends_are_not_build_depends(self):
+        pkgbuild = self.pkgbuild1.replace('makedepends=("lib1" "lib2")', 'depends=("lib1" "lib2")')
+        r = self.run_on_pkg(pkgbuild)
+        self.assertEqual(r.errors, [])
         self.assertEqual(r.warnings, [])
         self.assertEqual(r.infos, [])
